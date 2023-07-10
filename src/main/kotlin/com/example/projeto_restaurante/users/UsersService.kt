@@ -3,12 +3,11 @@ package com.example.projeto_restaurante.users
 import org.springframework.stereotype.Service
 
 @Service
-class UsersService(val userRepository: userRepository) {
-    fun save(user: User) = userRepository.save(user);
+class UsersService(val repository: UsersRepository) {
+    fun save(user: User) = repository.save(user);
 
-    fun getById(id: Long) = userRepository.getById(id);
+    fun getById(id: Long) = repository.getById(id);
 
-    fun findAll() = userRepository.findAll();
+    fun findAll() = repository.findAll();
 
-    fun delete(id: Long) = userRepository.delete(id);
 }

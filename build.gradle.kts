@@ -24,7 +24,9 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation ("org.springframework.boot:spring-boot-starter")
+    implementation("org.postgresql:postgresql")
 }
 
 tasks.withType<KotlinCompile> {
