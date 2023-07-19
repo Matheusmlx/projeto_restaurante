@@ -1,12 +1,7 @@
 package com.example.projeto_restaurante.users
 
-import jakarta.persistence.Column
-import jakarta.persistence.Entity
-import jakarta.persistence.GeneratedValue
-import jakarta.persistence.Id
-import jakarta.persistence.Table
+import jakarta.persistence.*
 import jakarta.validation.constraints.Email
-import jakarta.validation.constraints.NotNull
 
 @Entity
 @Table(name = "TblUser")
@@ -22,5 +17,12 @@ open class User(
     val password: String,
 
     @Column(nullable = false)
-    val name: String = ""
+    val name: String = "",
+
+    @ManyToMany
+    @JoinTable(
+        name="UserRoles",
+        joinColumns = arrayOf(JoinColumn(name="idUser")),
+        inverseJoinColumns = arrayOf(JoinColumn(name="idRole")))
+    val roles: Set<Role> = setOf()
 )

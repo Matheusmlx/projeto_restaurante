@@ -1,0 +1,19 @@
+package com.example.projeto_restaurante.users
+
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.Id
+import jakarta.persistence.ManyToMany
+
+@Entity
+open class Role (
+    @Id @GeneratedValue
+    val id: Long?,
+
+    @Column(unique = true, nullable = false)
+    val name: String,
+
+    @ManyToMany(mappedBy = "roles")
+    val users: Set<User>
+)
