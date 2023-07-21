@@ -3,7 +3,6 @@ package com.example.projeto_restaurante.users
 import com.example.projeto_restaurante.users.request.UserRequest
 import com.example.projeto_restaurante.users.response.UserResponse
 import jakarta.transaction.Transactional
-import jakarta.validation.Valid
 
 import org.springframework.http.HttpStatus.CREATED
 import org.springframework.http.ResponseEntity
@@ -14,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
-import java.util.Optional
 
 @Transactional
 @RestController
@@ -23,11 +22,11 @@ import java.util.Optional
 class UsersController(val service: UsersService) {
 
     @GetMapping
-    fun listUsers() = service.findAll().map { it.toResponse() }
+    fun listUsers(@RequestParam("role") role: String?) = service.findAll(role).map { it.toResponse() }
 
     @PostMapping
     fun createUser(@RequestBody @Validated req: UserRequest) =
-        service.save(User(email = req.email!!, password = req.password!!, name = req.name!!))
+        service.save(req)
             .toResponse()
             .let { ResponseEntity.status(CREATED).body(it)}
 
@@ -42,7 +41,7 @@ class UsersController(val service: UsersService) {
         val findUser = service.getById(id)
 
         if(findUser.isPresent) {
-            service.deleteById(id)
+
             ResponseEntity.ok()
         }else {
             ResponseEntity.notFound().build<User>()

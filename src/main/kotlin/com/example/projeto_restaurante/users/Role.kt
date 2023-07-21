@@ -9,11 +9,11 @@ import jakarta.persistence.ManyToMany
 @Entity
 open class Role (
     @Id @GeneratedValue
-    val id: Long?,
+    val id: Long? = null,
 
     @Column(unique = true, nullable = false)
     val name: String,
 
     @ManyToMany(mappedBy = "roles")
-    val users: Set<User>
+    val users: MutableSet<User> = mutableSetOf()
 )

@@ -21,8 +21,9 @@ open class User(
 
     @ManyToMany
     @JoinTable(
-        name="UserRoles",
-        joinColumns = arrayOf(JoinColumn(name="idUser")),
-        inverseJoinColumns = arrayOf(JoinColumn(name="idRole")))
-    val roles: Set<Role> = setOf()
+    name="UserRoles",
+    joinColumns = arrayOf(JoinColumn(name="idUser")),
+    inverseJoinColumns = [JoinColumn(name="idRole")]
+    )
+    val roles: MutableSet<Role> = mutableSetOf()
 )

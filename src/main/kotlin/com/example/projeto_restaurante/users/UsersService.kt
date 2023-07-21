@@ -1,15 +1,33 @@
 package com.example.projeto_restaurante.users
 
+import com.example.projeto_restaurante.RoleRepository
+import com.example.projeto_restaurante.users.exception.BadRequestException
+import com.example.projeto_restaurante.users.request.UserRequest
 import org.springframework.stereotype.Service
 
 @Service
-class UsersService(val repository: UsersRepository) {
-    fun save(user: User) = repository.save(user);
+class UsersService(val userepository: UsersRepository, val roleRepository: RoleRepository) {
+    fun save(request: UserRequest): User {
+        val user = User(
+            email = request.email!!,
+            password = request.password!!,
+            name = request.name!!)
 
-    fun getById(id: Long) = repository.findById(id);
+        val userRole = roleRepository.findByName("USERs")
+            ?: throw BadRequestException("Não existe esse tipo de usuario")
 
-    fun findAll() = repository.findAll();
+        user.roles.add(userRole)
+        return userepository.save(user);
+    }
 
-    fun deleteById(id: Long) = repository.deleteById(id);
+    fun getById(id: Long) = userepository.findById(id)
+
+    fun findAll(role: String?): List<User> =
+        if(role == null) userepository.findAll()
+        else userepository.findAllByRoles(role)
+
+    fun deleteById(id: Long) {
+        userepository.deleteById(id);
+    }
 
 }
