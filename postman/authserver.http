@@ -6,11 +6,14 @@ Content-Type: application/json
 
 {
   "name": "Marco",
-  "email":"marcosrs0303@outlook.com",
+  "email":"marcos0303@outlook.com",
   "password": "12345678"
 }
 
 ### Busca todos os itens
+GET localhost:8080/api/v1/users
+
+### Busca todos os itens filtro
 GET localhost:8080/api/v1/users?role=ADMIN
 
 ### Busca por id
@@ -18,3 +21,11 @@ GET localhost:8080/api/v1/users/1
 
 ### Delete user
 DELETE localhost:8080/api/v1/users/2
+
+### Login
+POST localhost:8080/api/v1/users/login
+Content-Type: application/json
+{
+  "email": "marcos0303@outlook.com",
+  "password": "12345678"
+}

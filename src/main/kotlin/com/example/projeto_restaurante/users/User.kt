@@ -1,5 +1,6 @@
 package com.example.projeto_restaurante.users
 
+import com.example.projeto_restaurante.users.response.UserResponse
 import jakarta.persistence.*
 import jakarta.validation.constraints.Email
 
@@ -26,4 +27,6 @@ open class User(
     inverseJoinColumns = [JoinColumn(name="idRole")]
     )
     val roles: MutableSet<Role> = mutableSetOf()
-)
+){
+    fun toResponse() = UserResponse(id!!, name, email)
+}
